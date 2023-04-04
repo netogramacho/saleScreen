@@ -1,0 +1,14 @@
+{
+  "/products": {
+    "target": "http://localhost:80",
+    "secure": false
+  },
+  "/category": {
+    "target": "http://localhost:80",
+    "secure": false
+  },
+  "/sales": {
+    "target": "http://localhost:80",
+    "secure": false
+  }
+}
