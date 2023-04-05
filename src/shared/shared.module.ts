@@ -20,6 +20,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NewSaleComponent } from './components/new-sale/new-sale.component';
+import { SalesListComponent } from './components/sales-list/sales-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogSearchComponent } from './components/dialog-search/dialog-search.component';
+import { FilterPipe } from './pipe/filter.pipe';
+import { ProductSearchComponent } from './components/product-search/product-search.component';
+import { CartProductComponent } from './components/cart-product/cart-product.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +35,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SalesComponent,
     MenuComponent,
     SideDialogComponent,
+    NewSaleComponent,
+    SalesListComponent,
+    DialogSearchComponent,
+    FilterPipe,
+    ProductSearchComponent,
+    CartProductComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +54,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatIconModule,
     MatSnackBarModule,
+    MatDialogModule,
   ],
   exports: [ProductsComponent, CategoriesComponent, SalesComponent],
   providers: [ProductApi, CategoriesApi],

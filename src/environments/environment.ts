@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:80'
+  url: 'https://apisalescreen.gramachodev.com.br'
 };
 
 /*

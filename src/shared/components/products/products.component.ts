@@ -42,6 +42,7 @@ export class ProductsComponent implements OnInit {
       productDescription: '',
       productPrice: '',
       categoryId: '',
+      taxValue: '',
     };
   }
 
@@ -116,6 +117,7 @@ export class ProductsComponent implements OnInit {
       productDescription: '',
       productPrice: '',
       categoryId: '',
+      taxValue: '',
     };
   }
 }

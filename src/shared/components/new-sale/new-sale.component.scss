@@ -1,0 +1,12 @@
+.total {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+
+  & span {
+    font-weight: bold;
+  }
+}

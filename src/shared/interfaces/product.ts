@@ -6,6 +6,6 @@ export interface Product {
   productDescription: string;
   productId?: number | string;
   productName: string;
-  productPrice: number | string;
-  taxValue?: number;
+  productPrice: string;
+  taxValue: string;
 }

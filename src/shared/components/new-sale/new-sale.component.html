@@ -1,0 +1,16 @@
+<div class="body">
+  <button mat-raised-button color="primary" (click)="openFindProduct()">
+    Add Product
+  </button>
+
+  <h2>Products</h2>
+  <ng-container *ngFor="let saleProduct of currSale.saleProducts">
+    <app-cart-product [product]="saleProduct.product" [quantity]="saleProduct.quantity" (increment)="incrementQuantity($event)" (decrement)="decrementQuantity($event)" (remove)="removeProduct($event)"></app-cart-product>
+  </ng-container>
+
+  <h2>Total</h2>
+  <div class="total">
+    <p><span>Total Price: $ </span>{{ currSale.saleTotal.toFixed(2) }}</p>
+    <p><span>Total Tax: $ </span>{{ currSale.saleTax.toFixed(2) }}</p>
+  </div>
+</div>
