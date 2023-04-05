@@ -1,46 +1,58 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Product } from '../interfaces/product';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { httpOptions } from './default-api';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ProductApi {
   constructor(private http: HttpClient) {}
 
   get(): Observable<Product[]> {
-    return this.http.get<any>('/products').pipe(
+    return this.http.get<any>('/products-api').pipe(
       map((products) =>
         products.map((product: any) => ({
-          prc_id: product.PRC_ID,
-          prc_name: product.PRC_NAME,
-          prc_tax: product.PRC_TAX,
-          pro_active: product.PRC_ACTIVE,
-          pro_description: product.PRC_DESCRIPTION,
-          pro_id: product.PRO_ID,
-          pro_name: product.PRO_NAME,
-          pro_price: parseFloat(product.PRO_PRICE),
-          tax_value: product.TAX_VALUE.toFixed(2),
-        })),
-      ),
+          categoryId: product.PRC_ID,
+          categoryName: product.PRC_NAME,
+          categoryTax: product.PRC_TAX,
+          productActive: product.PRC_ACTIVE,
+          productDescription: product.PRO_DESCRIPTION,
+          productId: product.PRO_ID,
+          productName: product.PRO_NAME,
+          productPrice: parseFloat(product.PRO_PRICE).toFixed(2),
+          taxValue: product.TAX_VALUE.toFixed(2),
+        }))
+      )
     );
   }
 
-  createProduct(product:Product): Observable<Product> {
-    return this.http.post<any>('/products', product, httpOptions).pipe(
-      map((product) => product.map((product:any) => ({
-        prc_id: product.PRC_ID,
-        prc_name: product.PRC_NAME,
-        prc_tax: product.PRC_TAX,
-        pro_active: product.PRC_ACTIVE,
-        pro_description: product.PRC_DESCRIPTION,
-        pro_id: product.PRO_ID,
-        pro_name: product.PRO_NAME,
-        pro_price: parseFloat(product.PRO_PRICE),
-        tax_value: product.TAX_VALUE.toFixed(2),
-      })))
-    )
+  post(product: Product) {
+    return this.http.post<any>('/products-api', product, httpOptions).pipe(
+      catchError((error) => {
+        // Handle error here, e.g., log error or show error message
+        return throwError(error);
+      })
+    );
+  }
+
+  put(product: Product) {
+    return this.http
+      .put<any>('/products-api/' + product.productId, product, httpOptions)
+      .pipe(
+        catchError((error) => {
+          // Handle error here, e.g., log error or show error message
+          return throwError(error);
+        })
+      );
+  }
+
+  delete(productId: any) {
+    return this.http.delete<any>('/products-api/' + productId).pipe(
+      catchError((error) => {
+        // Handle error here, e.g., log error or show error message
+        return throwError(error);
+      })
+    );
   }
 }

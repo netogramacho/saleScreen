@@ -1,1 +1,80 @@
-<p>categories works!</p>
+<div class="body">
+  <div>
+    <button mat-raised-button color="primary" (click)="prepareAddCategory()">
+      Add Category
+    </button>
+  </div>
+  <table
+    *ngIf="!loading"
+    mat-table
+    [dataSource]="categories"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="prc_id">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let element">{{ element.categoryId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="prc_name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.categoryName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="prc_tax">
+      <th mat-header-cell *matHeaderCellDef>Tax</th>
+      <td mat-cell *matCellDef="let element">
+        {{ (element.categoryTax * 100).toFixed(2) }}%
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>Edit</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="editCategory(element)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="warn" (click)="deleteCategory(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<app-side-dialog [isOpen]="isDialogOpen" (onClose)="isDialogOpen = false">
+  <h2>Category</h2>
+  <form>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Category name</mat-label>
+      <input
+        matInput
+        name="productName"
+        [(ngModel)]="currCategory.categoryName"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Category tax</mat-label>
+      <input
+        matInput
+        name="productPrice"
+        [(ngModel)]="currCategory.categoryTax"
+      />
+    </mat-form-field>
+  </form>
+  <button (click)="saveCategory()" mat-raised-button color="primary">
+    Save
+  </button>
+</app-side-dialog>

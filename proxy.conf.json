@@ -1,13 +1,13 @@
 {
-  "/products": {
+  "/products-api": {
     "target": "http://localhost:80",
     "secure": false
   },
-  "/category": {
+  "/category-api": {
     "target": "http://localhost:80",
     "secure": false
   },
-  "/sales": {
+  "/sales-api": {
     "target": "http://localhost:80",
     "secure": false
   }

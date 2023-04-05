@@ -1,11 +1,11 @@
 export interface Product {
-  prc_id: number;
-  prc_name?: string;
-  prc_tax?: number;
-  pro_active?: number;
-  pro_description: string;
-  pro_id?: number;
-  pro_name: string;
-  pro_price: number;
-  tax_value?: number;
+  categoryId: number | string;
+  categoryName?: string;
+  categoryTax?: number;
+  productActive?: number;
+  productDescription: string;
+  productId?: number | string;
+  productName: string;
+  productPrice: number | string;
+  taxValue?: number;
 }

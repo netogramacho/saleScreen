@@ -1,4 +1,4 @@
-import { Categories } from './../interfaces/categories';
+import { Category } from '../interfaces/category';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,14 +9,26 @@ import { environment } from 'src/environments/environment';
 export class CategoriesApi {
   constructor(private http: HttpClient) {}
 
-  get(): Observable<Categories[]> {
+  get(): Observable<Category[]> {
     return this.http
-      .get<any>('/category')
+      .get<any>('/category-api')
       .pipe(map((category) => category.map((category: any) => ({
-        prc_id: category.PRC_ID,
-        prc_name: category.PRC_NAME,
-        prc_tax: category.PRC_TAX,
-        prc_active: category.PRC_ACTIVE,
+        categoryId: category.PRC_ID,
+        categoryName: category.PRC_NAME,
+        categoryTax: category.PRC_TAX,
+        categoryActive: category.PRC_ACTIVE,
       }))));
+  }
+
+  post(category:Category) {
+    return this.http.post<any>('/category-api', category);
+  }
+
+  put(category:Category) {
+    return this.http.put<any>('/category-api/' + category.categoryId, category);
+  }
+
+  delete(categoryId: any) {
+    return this.http.delete<any>('/category-api/' + categoryId);
   }
 }

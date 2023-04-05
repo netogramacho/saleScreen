@@ -5,10 +5,10 @@ import { ProductsComponent } from 'src/shared/components/products/products.compo
 import { SalesComponent } from 'src/shared/components/sales/sales.component';
 
 const routes: Routes = [
-  {path: 'sales', component: SalesComponent},
-  {path: 'products', component: ProductsComponent},
-  {path: 'categories', component: CategoriesComponent},
-  { path: '', redirectTo: '/sales', pathMatch: 'full' },
+  {path: 'salesList', component: SalesComponent},
+  {path: 'productsList', component: ProductsComponent},
+  {path: 'categoriesList', component: CategoriesComponent},
+  { path: '', redirectTo: '/salesList', pathMatch: 'full' },
 ];
 
 @NgModule({
