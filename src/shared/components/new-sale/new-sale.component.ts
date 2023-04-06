@@ -14,7 +14,8 @@ import { SpinnerService } from 'src/shared/services/SpinnerService.service';
   styleUrls: ['./new-sale.component.scss'],
 })
 export class NewSaleComponent implements OnInit {
-  products!: Product[];
+  allProducts!: Product[];
+  currProducts!: Product[];
   currSale: Sale;
   showSpinner!: boolean;
 
@@ -33,6 +34,7 @@ export class NewSaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.products$.subscribe((products) => {
+      this.allProducts = products;
       this.filterProducts(products);
     });
 
@@ -42,7 +44,7 @@ export class NewSaleComponent implements OnInit {
   }
 
   filterProducts(products: Product[]) {
-    this.products = products.filter((product) => {
+    this.currProducts = products.filter((product) => {
       return !this.currSale.saleProducts.some(
         (saleProduct) => saleProduct.product.productId === product.productId
       );
@@ -51,14 +53,14 @@ export class NewSaleComponent implements OnInit {
 
   openFindProduct() {
     const dialogRef = this.dialog.open(DialogSearchComponent, {
-      data: this.products,
+      data: this.currProducts,
     });
 
     dialogRef.afterClosed().subscribe((result: Product) => {
       if (result) {
         this.currSale.saleProducts.push({ product: result, quantity: 1 });
         this.updateCurrentSale();
-        this.filterProducts(this.products);
+        this.filterProducts(this.currProducts);
       }
     });
   }
@@ -99,6 +101,12 @@ export class NewSaleComponent implements OnInit {
   }
 
   removeProduct(productId: number) {
-    console.log(productId);
+    const index = this.currSale.saleProducts.findIndex(
+      (saleProduct: SaleProduct) => saleProduct.product.productId == productId
+    );
+    if (index != -1) {
+      this.currSale.saleProducts.splice(index, 1);
+      this.filterProducts(this.allProducts);
+    }
   }
 }

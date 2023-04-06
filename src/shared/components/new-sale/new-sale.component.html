@@ -4,6 +4,10 @@
   </button>
 
   <h2>Products</h2>
+
+  <div *ngIf="!currSale.saleProducts.length" class="total">
+    <p>This sale is empty.</p>
+  </div>
   <ng-container *ngFor="let saleProduct of currSale.saleProducts">
     <app-cart-product
       [product]="saleProduct.product"
