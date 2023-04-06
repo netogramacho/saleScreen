@@ -2,8 +2,8 @@
   <div class="product-details">
     <h3>{{ product.productName }}</h3>
     <p>{{ product.productDescription }}</p>
-    <p>Price: $ {{ product.productPrice }}</p>
-    <p>Tax: $ {{ product.taxValue }}</p>
+    <p>Price: {{ product.productPrice | currency }}</p>
+    <p>Tax: {{ product.taxValue | currency }}</p>
   </div>
   <div class="product-quantity">
     <button (click)="decrementQuantity()" class="quantity-btn minus">-</button>

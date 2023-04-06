@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, PercentPipe } from '@angular/common';
 
 import { ProductsComponent } from './components/products/products.component';
 import { CategoriesComponent } from './components/categories/categories.component';
@@ -10,6 +10,12 @@ import { ProductApi } from './api/products-api';
 import { CategoriesApi } from './api/categories-api';
 import { SideDialogComponent } from './components/side-dialog/side-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { ProductSearchComponent } from './components/product-search/product-search.component';
+import { CartProductComponent } from './components/cart-product/cart-product.component';
+import { DialogSearchComponent } from './components/dialog-search/dialog-search.component';
+import { NewSaleComponent } from './components/new-sale/new-sale.component';
+import { SalesListComponent } from './components/sales-list/sales-list.component';
+import { FilterPipe } from './pipe/filter.pipe';
 
 // MATERIAL
 import { MatTableModule } from '@angular/material/table';
@@ -20,13 +26,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { NewSaleComponent } from './components/new-sale/new-sale.component';
-import { SalesListComponent } from './components/sales-list/sales-list.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogSearchComponent } from './components/dialog-search/dialog-search.component';
-import { FilterPipe } from './pipe/filter.pipe';
-import { ProductSearchComponent } from './components/product-search/product-search.component';
-import { CartProductComponent } from './components/cart-product/cart-product.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { CartProductComponent } from './components/cart-product/cart-product.com
     MatIconModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   exports: [ProductsComponent, CategoriesComponent, SalesComponent],
   providers: [ProductApi, CategoriesApi],

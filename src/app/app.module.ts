@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'src/shared/shared.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { HttpClientJsonpModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientJsonpModule } from '@angular/common/http';
+import { SpinnerInterceptor } from 'src/shared/interceptors/SpinnerInterceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,11 @@ import { HttpClientJsonpModule } from '@angular/common/http';
     MatToolbarModule,
     HttpClientJsonpModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: SpinnerInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

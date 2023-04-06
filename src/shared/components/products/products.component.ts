@@ -6,6 +6,7 @@ import { CategoriesService } from 'src/shared/services/categories.service';
 import { SideDialogComponent } from '../side-dialog/side-dialog.component';
 import { MatTable } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SpinnerService } from 'src/shared/services/SpinnerService.service';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +19,7 @@ export class ProductsComponent implements OnInit {
 
   products!: Product[];
   categories!: Category[];
-  loading = true;
+  showSpinner!: boolean;
   displayedColumns = [
     'productId',
     'productName',
@@ -35,6 +36,7 @@ export class ProductsComponent implements OnInit {
     private productService: ProductService,
     private categoriesService: CategoriesService,
     private snackBar: MatSnackBar,
+    private spinnerService: SpinnerService
   ) {
     this.currProduct = {
       productId: '',
@@ -55,8 +57,8 @@ export class ProductsComponent implements OnInit {
       this.products = products;
     });
 
-    this.productService.loading$.subscribe((load: boolean) => {
-      this.loading = load;
+    this.spinnerService.spinnerState$.subscribe((load: boolean) => {
+      this.showSpinner = load;
     });
   }
 
@@ -73,7 +75,7 @@ export class ProductsComponent implements OnInit {
           });
         },
         (error) => {
-          this.snackBar.open(error.error.error, '', {duration: 5000});
+          this.snackBar.open(error, 'X', { duration: 5000 });
         }
       );
     } else {
@@ -84,7 +86,7 @@ export class ProductsComponent implements OnInit {
           });
         },
         (error) => {
-          this.snackBar.open(error.error.error, '', {duration: 5000});
+          this.snackBar.open(error, 'X', { duration: 5000 });
         }
       );
     }
@@ -100,7 +102,7 @@ export class ProductsComponent implements OnInit {
         });
       },
       (error) => {
-        this.snackBar.open(error.error.error, '', {duration: 5000});
+        this.snackBar.open(error, 'X', { duration: 5000 });
       }
     );
   }

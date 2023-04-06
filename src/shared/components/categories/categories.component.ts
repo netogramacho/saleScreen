@@ -4,6 +4,7 @@ import { SideDialogComponent } from '../side-dialog/side-dialog.component';
 import { MatTable } from '@angular/material/table';
 import { Category } from 'src/shared/interfaces/category';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SpinnerService } from 'src/shared/services/SpinnerService.service';
 
 @Component({
   selector: 'app-categories',
@@ -15,20 +16,15 @@ export class CategoriesComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
 
   categories!: Category[];
-  loading = true;
-  displayedColumns = [
-    'prc_id',
-    'prc_name',
-    'prc_tax',
-    'edit',
-    'delete',
-  ];
+  showSpinner!: boolean;
+  displayedColumns = ['prc_id', 'prc_name', 'prc_tax', 'edit', 'delete'];
   isDialogOpen = false;
   currCategory: Category;
 
   constructor(
     private categoriesService: CategoriesService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private spinnerService: SpinnerService
   ) {
     this.currCategory = {
       categoryName: '',
@@ -41,8 +37,8 @@ export class CategoriesComponent implements OnInit {
       this.categories = categories;
     });
 
-    this.categoriesService.laoding$.subscribe((load: boolean) => {
-      this.loading = load;
+    this.spinnerService.spinnerState$.subscribe((load: boolean) => {
+      this.showSpinner = load;
     });
   }
 
@@ -53,7 +49,6 @@ export class CategoriesComponent implements OnInit {
   saveCategory() {
     let category = { ...this.currCategory };
 
-    category.categoryTax = category.categoryTax / 100;
     if (category.categoryId) {
       this.categoriesService.updateCategory(this.currCategory).subscribe(
         () => {
@@ -62,28 +57,26 @@ export class CategoriesComponent implements OnInit {
           });
         },
         (error) => {
-          this.snackBar.open(error.error.error, '', { duration: 5000 });
+          this.snackBar.open(error, 'X', { duration: 5000 });
         }
       );
     } else {
       this.categoriesService.createCategory(this.currCategory).subscribe(
         () => {
-          this.snackBar.open('Produto criada com sucesso.', '', {
+          this.snackBar.open('Categoria criada com sucesso.', '', {
             duration: 3000,
           });
         },
         (error) => {
-          this.snackBar.open(error.error.error, '', { duration: 5000 });
+          this.snackBar.open(error, 'X', { duration: 5000 });
         }
       );
     }
     this.sideDialog.close();
-    this.clearCurrCategory();
   }
 
   editCategory(category: Category) {
     this.currCategory = { ...category };
-    console.log(this.currCategory);
     this.isDialogOpen = true;
   }
 
@@ -95,9 +88,14 @@ export class CategoriesComponent implements OnInit {
         });
       },
       (error) => {
-        this.snackBar.open(error.error.error, '', {duration: 5000});
+        this.snackBar.open(error, 'X', { duration: 5000 });
       }
     );
+  }
+
+  onCloseSideDialog() {
+    this.isDialogOpen = false;
+    this.clearCurrCategory();
   }
 
   clearCurrCategory() {
@@ -105,5 +103,14 @@ export class CategoriesComponent implements OnInit {
       categoryName: '',
       categoryTax: 0,
     };
+  }
+
+  parsePercent(number: string): number {
+    const parsedNumber = parseFloat(number);
+    if (isNaN(parsedNumber)) {
+      return 0;
+    } else {
+      return parsedNumber / 100;
+    }
   }
 }

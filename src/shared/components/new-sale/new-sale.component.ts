@@ -6,6 +6,7 @@ import { Product } from 'src/shared/interfaces/product';
 import { ProductService } from 'src/shared/services/product.service';
 import { Sale } from 'src/shared/interfaces/sale';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SpinnerService } from 'src/shared/services/SpinnerService.service';
 
 @Component({
   selector: 'app-new-sale',
@@ -15,11 +16,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NewSaleComponent implements OnInit {
   products!: Product[];
   currSale: Sale;
+  showSpinner!: boolean;
 
   constructor(
     private dialog: MatDialog,
     private productService: ProductService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private spinnerService: SpinnerService
   ) {
     this.currSale = {
       saleTotal: 0,
@@ -31,6 +34,10 @@ export class NewSaleComponent implements OnInit {
   ngOnInit(): void {
     this.productService.products$.subscribe((products) => {
       this.filterProducts(products);
+    });
+
+    this.spinnerService.spinnerState$.subscribe((load: boolean) => {
+      this.showSpinner = load;
     });
   }
 

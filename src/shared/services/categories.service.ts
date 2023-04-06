@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 })
 export class CategoriesService {
   private categoriesSubject$ = new BehaviorSubject<Category[]>([]);
-  private productsLoading$ = new BehaviorSubject<boolean>(false);
+  private categoriesLoading$ = new BehaviorSubject<boolean>(false);
 
   constructor(private categoriesApi: CategoriesApi) {
     this.loadCategories();
@@ -20,14 +20,14 @@ export class CategoriesService {
   }
 
   get laoding$() {
-    return this.productsLoading$.asObservable();
+    return this.categoriesLoading$.asObservable();
   }
 
   loadCategories() {
-    this.productsLoading$.next(true);
+    this.categoriesLoading$.next(true);
     this.categoriesApi.get().subscribe((category) => {
       this.categoriesSubject$.next(category);
-      this.productsLoading$.next(false);
+      this.categoriesLoading$.next(false);
     });
   }
 

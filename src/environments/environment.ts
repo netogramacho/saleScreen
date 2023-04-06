@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'https://apisalescreen.gramachodev.com.br'
+  productApi: '/products-api/',
+  categoryApi: '/category-api/'
 };
 
 /*

@@ -6,7 +6,7 @@ import { Product } from 'src/shared/interfaces/product';
   templateUrl: './cart-product.component.html',
   styleUrls: ['./cart-product.component.scss'],
 })
-export class CartProductComponent implements OnInit {
+export class CartProductComponent {
   @Input() product!: Product;
   @Input() quantity!:number;
   @Output() increment = new EventEmitter();
@@ -14,10 +14,6 @@ export class CartProductComponent implements OnInit {
   @Output() remove = new EventEmitter();
 
   constructor() {}
-
-  ngOnInit(): void {
-    console.log(this.product);
-  }
 
   incrementQuantity() {
     this.increment.emit(this.product.productId);

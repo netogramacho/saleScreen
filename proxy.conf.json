@@ -1,14 +1,14 @@
 {
   "/products-api": {
-    "target": "https://apisalescreen.gramachodev.com.br",
+    "target": "http://localhost:80",
     "changeOrigin": true
   },
   "/category-api": {
-    "target": "https://apisalescreen.gramachodev.com.br",
+    "target": "http://localhost:80",
     "changeOrigin": true
   },
   "/sales-api": {
-    "target": "https://apisalescreen.gramachodev.com.br",
+    "target": "http://localhost:80",
     "changeOrigin": true
   }
 }
