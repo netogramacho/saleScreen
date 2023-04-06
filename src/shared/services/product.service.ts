@@ -9,7 +9,6 @@ import { tap } from 'rxjs/operators';
 })
 export class ProductService {
   private productsSubject$ = new BehaviorSubject<Product[]>([]);
-  private productsLoading$ = new BehaviorSubject<boolean>(false);
 
   constructor(private productApi: ProductApi) {
     this.loadProducts();
@@ -19,16 +18,10 @@ export class ProductService {
     return this.productsSubject$.asObservable();
   }
 
-  get loading$() {
-    return this.productsLoading$.asObservable();
-  }
-
   loadProducts() {
-    this.productsLoading$.next(true);
     return this.productApi.get().subscribe(
       (products: Product[]) => {
         this.productsSubject$.next(products);
-        this.productsLoading$.next(false);
       },
       (error) => {}
     );

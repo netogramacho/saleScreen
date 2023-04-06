@@ -23,7 +23,7 @@ export class ProductApi {
   post(product: Product) {
     return this.http
       .post<any>(environment.productApi, product, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   put(product: Product) {

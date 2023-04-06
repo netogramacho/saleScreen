@@ -19,15 +19,9 @@ export class CategoriesService {
     return this.categoriesSubject$.asObservable();
   }
 
-  get laoding$() {
-    return this.categoriesLoading$.asObservable();
-  }
-
   loadCategories() {
-    this.categoriesLoading$.next(true);
     this.categoriesApi.get().subscribe((category) => {
       this.categoriesSubject$.next(category);
-      this.categoriesLoading$.next(false);
     });
   }
 

@@ -28,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SaleApi } from './api/sale-api';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
   exports: [ProductsComponent, CategoriesComponent, SalesComponent],
-  providers: [ProductApi, CategoriesApi],
+  providers: [ProductApi, CategoriesApi, SaleApi],
 })
 export class SharedModule {}

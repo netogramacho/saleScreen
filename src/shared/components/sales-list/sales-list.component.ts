@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Sale } from 'src/shared/interfaces/sale';
 
 @Component({
   selector: 'app-sales-list',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sales-list.component.scss']
 })
 export class SalesListComponent implements OnInit {
+
+  @Input() sales!:Sale[];
+  displayedColumns = ["saleId", "saleDate", "saleTotal", "saleTax"]
 
   constructor() { }
 

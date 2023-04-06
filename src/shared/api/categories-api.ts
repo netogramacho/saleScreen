@@ -24,7 +24,7 @@ export class CategoriesApi {
   post(category: Category) {
     return this.http
       .post<Category>(environment.categoryApi, category, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   put(category: Category) {

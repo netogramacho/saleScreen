@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   productApi: '/products-api/',
-  categoryApi: '/category-api/'
+  categoryApi: '/category-api/',
+  saleApi: '/sales-api/'
 };
 
 /*
