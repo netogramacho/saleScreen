@@ -9,7 +9,7 @@ This project is a sale screen FrontEnd side, where you can manage your product c
 
 This app features all the latest tools and practices in development!
 
--  **Angular** — A JavaScript library for building user interfaces
+-  **Angular 12** — A JavaScript library for building user interfaces
 
 
   
